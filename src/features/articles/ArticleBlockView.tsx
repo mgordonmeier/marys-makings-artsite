@@ -1,4 +1,4 @@
-import type { ArticleBlock } from '../types';
+import type { ArticleBlock } from '../../types';
 
 type ArticleBlockViewProps = {
   block: ArticleBlock;
@@ -12,7 +12,7 @@ export function ArticleBlockView({ block }: ArticleBlockViewProps) {
   if (block.type === 'image') {
     return (
       <figure className={block.narrow ? 'articleImage isNarrow' : 'articleImage'}>
-        <img src={block.src} alt={block.alt} />
+        <img src={block.src} alt={block.alt} loading="lazy" decoding="async" />
         {block.caption ? <figcaption>{block.caption}</figcaption> : null}
       </figure>
     );

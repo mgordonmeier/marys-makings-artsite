@@ -1,32 +1,64 @@
-# React + TypeScript + Vite
+# The Mossy Post React Migration
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript + Vite rebuild of `themossypost.com`, migrated from the original WordPress site so the layout, copy, and routing can be customized directly in code.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Install dependencies:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Run the local dev server:
+
+```sh
+npm run dev
+```
+
+Create a production build:
+
+```sh
+npm run build
+```
+
+Preview the production build locally:
+
+```sh
+npm run preview
+```
+
+Run linting:
+
+```sh
+npm run lint
+```
+
+## Project Structure
+
+- `src/App.tsx` handles simple path-based routing.
+- `src/pages/` contains standalone pages such as About and 404.
+- `src/features/archive/` contains archive page rendering, post cards, and archive-specific UI.
+- `src/features/articles/` contains article page rendering and article block rendering.
+- `src/components/` contains shared shell components such as the layout and header.
+- `src/data/posts.ts` contains copied post metadata and article body blocks.
+- `src/data/about.ts` contains About page content.
+- `src/lib/archives.ts` defines archive pagination and the post limit per archive page.
+- `src/lib/posts.ts` contains post lookup helpers.
+- `src/lib/routing.ts` normalizes URL paths.
+- `src/data/site.ts` stores shared site title and route constants.
+- `src/types.ts` defines article and post data shapes.
+- `src/index.css` contains the WordPress-inspired theme styling.
+
+## Routes
+
+- `/` - homepage archive with the first page of posts.
+- `/page/2/`, `/page/3/`, etc. - generated older-post archive pages.
+- `/about/` - About page.
+- `/2026/.../` - individual article pages using WordPress-style slugs.
+
+## Content Notes
+
+The project currently uses copied text and remote image URLs from the original WordPress site. Article content is represented as structured data blocks so pages can be rendered consistently without embedding everything in `App.tsx`.
+
+When adding or editing posts, update `src/data/posts.ts`. Archive pages are generated from that file using `POSTS_PER_PAGE` in `src/lib/archives.ts`, so additional archive routes appear automatically as the post list grows.

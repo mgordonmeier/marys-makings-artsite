@@ -1,4 +1,4 @@
-import type { Post } from '../types';
+import type { Post } from '../../types';
 import { PostCard } from './PostCard';
 
 type ArchivePostGridProps = {
@@ -15,4 +15,3 @@ export function ArchivePostGrid({ ariaLabel, posts }: ArchivePostGridProps) {
     </section>
   );
 }
-

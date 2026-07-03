@@ -1,36 +1,31 @@
-import { Header } from './components/Header';
-import { posts } from './data/posts';
+import { Layout } from './components/Layout';
 import { routes } from './data/site';
+import { ArchivePage } from './features/archive';
+import { ArticlePage } from './features/articles';
 import './index.css';
-import { ArticlePage } from './pages/ArticlePage';
+import { getArchivePage } from './lib/archives';
+import { getPostByPath } from './lib/posts';
+import { normalizePath } from './lib/routing';
 import { AboutPage } from './pages/AboutPage';
-import { HomePage } from './pages/HomePage';
 import { NotFound } from './pages/NotFound';
-import { PageTwo } from './pages/PageTwo';
-import { normalizePath } from './utils/routing';
 
 function App() {
   const path = normalizePath(window.location.pathname);
-  const currentPost = posts.find((post) => post.slug === path);
+  const currentPost = getPostByPath(path);
+  const currentArchive = getArchivePage(path);
 
   return (
-    <div className="siteShell">
-      <Header />
-
-      <main className="pageContent">
-        {currentPost ? (
-          <ArticlePage post={currentPost} />
-        ) : path === routes.home ? (
-          <HomePage />
-        ) : path === routes.pageTwo ? (
-          <PageTwo />
-        ) : path === routes.about ? (
-          <AboutPage />
-        ) : (
-          <NotFound />
-        )}
-      </main>
-    </div>
+    <Layout>
+      {currentArchive ? (
+        <ArchivePage archive={currentArchive} />
+      ) : currentPost ? (
+        <ArticlePage post={currentPost} />
+      ) : path === routes.about ? (
+        <AboutPage />
+      ) : (
+        <NotFound />
+      )}
+    </Layout>
   );
 }
 

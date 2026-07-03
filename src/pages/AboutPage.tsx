@@ -9,7 +9,7 @@ export function AboutPage() {
         <div className="aboutGallery">
           {aboutPage.images.map((image) => (
             <figure key={image.src}>
-              <img src={image.src} alt={image.alt} />
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
             </figure>
           ))}
         </div>
@@ -17,4 +17,3 @@ export function AboutPage() {
     </article>
   );
 }
-

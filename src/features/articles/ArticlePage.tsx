@@ -1,15 +1,13 @@
-import { ArticleBlockView } from '../components/ArticleBlockView';
-import { posts } from '../data/posts';
-import type { Post } from '../types';
+import { getAdjacentPosts } from '../../lib/posts';
+import type { Post } from '../../types';
+import { ArticleBlockView } from './ArticleBlockView';
 
 type ArticlePageProps = {
   post: Post;
 };
 
 export function ArticlePage({ post }: ArticlePageProps) {
-  const currentIndex = posts.findIndex((candidate) => candidate.slug === post.slug);
-  const newerPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
-  const olderPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined;
+  const { newerPost, olderPost } = getAdjacentPosts(post.slug);
 
   return (
     <article className="articlePage">
