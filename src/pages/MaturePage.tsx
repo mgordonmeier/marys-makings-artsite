@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { ArtworkGallery } from '../components/ArtworkGallery';
 
 const AGE_GATE_KEY = 'marys-makings-mature-access';
 
@@ -26,6 +27,12 @@ function MatureContentPreview({ isLocked = false }: { isLocked?: boolean }) {
           <strong>Behind-the-scenes posts</strong>
         </article>
       </div>
+
+      <ArtworkGallery
+        isInteractive={!isLocked}
+        label="Mature section artwork preview"
+        limit={3}
+      />
     </div>
   );
 }

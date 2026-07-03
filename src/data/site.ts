@@ -19,3 +19,15 @@ export const navItems = [
   { label: 'Mossypost', href: routes.mossypost },
   { label: '18+ Mature Content', href: routes.mature },
 ] as const;
+
+export const externalLinks = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/marysmakings?igsh=cnpyOW1wZXdrbG40',
+  },
+  { label: 'Etsy', href: 'https://www.etsy.com/' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/' },
+  { label: 'Pinterest', href: 'https://www.pinterest.com/' },
+  { label: 'YouTube', href: 'https://www.youtube.com/' },
+  { label: 'Facebook', href: 'https://www.facebook.com/' },
+] as const;
