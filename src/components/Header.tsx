@@ -1,20 +1,19 @@
-import { routes, SITE_TITLE } from '../data/site';
+import { navItems, routes, SITE_TITLE } from '../data/site';
 
 export function Header() {
   return (
     <header className="siteHeader" aria-label="Site header">
-      <a className="siteTitle" href={routes.home} aria-label={`${SITE_TITLE} home`}>
+      <a className="siteLogo" href={routes.home} aria-label={`${SITE_TITLE} home`}>
         {SITE_TITLE}
       </a>
 
-      <div className="headerActions">
-        <nav className="siteNav" aria-label="Primary navigation">
-          <a href={routes.about}>About</a>
-        </nav>
-        <a className="learnButton" href={routes.about}>
-          Learn more
-        </a>
-      </div>
+      <nav className="siteNav" aria-label="Primary navigation">
+        {navItems.map((item) => (
+          <a className="navButton" href={item.href} key={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </header>
   );
 }

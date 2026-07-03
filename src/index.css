@@ -6,9 +6,11 @@
   --gradient-button: linear-gradient(135deg, #0693e3 0%, #07550d 59%, #9b51e0 100%);
   --content: 620px;
   --wide: 1440px;
-  --page-pad: clamp(24px, 7.5vw, 75px);
+  --page-pad: clamp(18px, 5vw, 75px);
+  --font-main: "Cinzel", Georgia, "Times New Roman", serif;
+  --font-display: "Uncial Antiqua", "Cinzel", Georgia, serif;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    var(--font-main);
   color: var(--ink);
   background: var(--moss);
   font-synthesis: none;
@@ -21,14 +23,19 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  min-height: 100vh;
+  min-height: 100svh;
   background: var(--moss);
   font-size: clamp(14px, 0.875rem + 0.18vw, 16px);
-  line-height: 1.65;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -42,50 +49,75 @@ img {
 
 .siteShell {
   min-height: 100vh;
+  min-height: 100svh;
   padding-bottom: clamp(24px, 5vw, 50px);
 }
 
 .siteHeader {
   width: min(var(--wide), 100%);
   margin: 0 auto;
-  padding: clamp(20px, 2.5vw, 25px) var(--page-pad);
+  padding: clamp(16px, 2.5vw, 24px) var(--page-pad);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: clamp(16px, 3vw, 32px);
 }
 
-.siteTitle {
-  font-size: clamp(20px, 1.25rem + 0.35vw, 24px);
-  font-weight: 550;
-  line-height: 1.3;
+.siteLogo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  max-width: 100%;
+  min-height: 44px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.15rem + 0.9vw, 32px);
+  font-weight: 400;
+  line-height: 1.18;
   text-decoration: none;
+  overflow-wrap: anywhere;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
-.headerActions,
+.siteLogo:hover {
+  opacity: 0.82;
+  transform: translateY(-2px);
+}
+
 .siteNav {
   display: flex;
   align-items: center;
-  gap: 25px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
 }
 
-.siteNav a {
-  font-size: clamp(14px, 0.875rem + 0.18vw, 16px);
-  line-height: 1.3;
-  text-decoration: none;
-}
-
-.learnButton {
+.navButton {
   background: var(--gradient-button);
-  color: var(--moss);
+  color: #f2ffe9;
   display: inline-flex;
   align-items: center;
-  min-height: 57px;
-  padding: 16px 24px;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 16px;
+  border: 1px solid rgba(30, 30, 30, 0.12);
   font-size: clamp(14px, 0.875rem + 0.18vw, 16px);
-  font-weight: 450;
+  font-weight: 700;
   line-height: 1.3;
   text-decoration: none;
+  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.14);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.navButton:hover {
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
+  transform: translateY(-2px);
 }
 
 .pageContent {
@@ -114,15 +146,17 @@ img {
   display: inline;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  font-weight: 500;
-  line-height: 1;
-  padding: 0 0.04em 0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.24;
+  padding: 0.04em 0.08em 0.08em;
 }
 
 .postCard h2,
 .articleHeader h1 {
-  font-size: clamp(33px, 2.1rem + 2.4vw, 60px);
+  font-size: clamp(30px, 1.9rem + 2.1vw, 56px);
   overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .postCard time,
@@ -134,22 +168,270 @@ img {
 
 .postCard p {
   margin: 25px 0 0;
+  overflow-wrap: anywhere;
 }
 
 .readMore {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   width: fit-content;
   margin-top: 25px;
   text-decoration: none;
 }
 
 .readMore:hover,
-.siteNav a:hover,
-.siteTitle:hover,
+.siteLogo:hover,
+.navButton:hover,
 .archivePageLink:hover,
 .archivePagination a:hover {
   text-decoration: underline;
   text-underline-offset: 0.18em;
+}
+
+.homePage,
+.sectionPage {
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
+.homeIntro {
+  max-width: 760px;
+}
+
+.homeEyebrow {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: clamp(14px, 0.9rem + 0.35vw, 18px);
+  font-weight: 700;
+}
+
+.homeIntro h1,
+.sectionPage h1 {
+  margin: 0;
+  background: var(--gradient-title);
+  color: var(--ink);
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 3.9rem + 2.5vw, 96px);
+  font-weight: 400;
+  line-height: 1.2;
+  padding: 0.04em 0.08em 0.08em;
+  overflow-wrap: anywhere;
+}
+
+.homeIntro p:not(.homeEyebrow),
+.sectionPage p {
+  max-width: 620px;
+  margin: 28px 0 0;
+  font-size: clamp(17px, 1rem + 0.45vw, 22px);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.homeLinkGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.4vw, 16px);
+  margin-top: clamp(36px, 6vw, 72px);
+}
+
+.homeLinkGrid a {
+  background: var(--gradient-button);
+  color: #f2ffe9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(68px, 7vw, 96px);
+  padding: 16px;
+  border: 1px solid rgba(30, 30, 30, 0.12);
+  font-size: clamp(14px, 1rem + 0.35vw, 21px);
+  font-weight: 650;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.16);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.homeLinkGrid a:hover {
+  box-shadow: 0 16px 30px rgba(30, 30, 30, 0.22);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  transform: translateY(-2px);
+}
+
+.ageGateForm {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.maturePage {
+  position: relative;
+}
+
+.maturePage.isLocked {
+  min-height: min(680px, calc(100svh - 160px));
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.maturePage.isLocked .maturePreview {
+  position: absolute;
+  inset: 0;
+  filter: blur(18px);
+  opacity: 0.42;
+  transform: scale(1.03);
+  pointer-events: none;
+  user-select: none;
+  transition:
+    filter 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.maturePage.isLocked:hover .maturePreview,
+.maturePage.isLocked:focus-within .maturePreview {
+  filter: blur(12px);
+  opacity: 0.58;
+  transform: scale(1.01);
+}
+
+.maturePage.isLocked::after {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  background: rgba(105, 184, 101, 0.5);
+  pointer-events: none;
+}
+
+.maturePreview {
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.maturePreviewGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 18px);
+}
+
+.maturePreviewGrid article {
+  min-height: 150px;
+  padding: clamp(18px, 2.4vw, 26px);
+  background: var(--gradient-button);
+  color: #f2ffe9;
+  border: 1px solid rgba(30, 30, 30, 0.12);
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.16);
+}
+
+.maturePreviewGrid span,
+.maturePreviewGrid strong {
+  display: block;
+}
+
+.maturePreviewGrid span {
+  margin-bottom: 14px;
+  opacity: 0.78;
+  font-size: 0.9em;
+  font-weight: 650;
+}
+
+.maturePreviewGrid strong {
+  font-size: clamp(20px, 1.4rem + 0.8vw, 34px);
+  line-height: 1.05;
+}
+
+.ageGatePanel {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  padding: clamp(22px, 4vw, 34px);
+  background: rgba(105, 184, 101, 0.9);
+  border: 1px solid rgba(30, 30, 30, 0.16);
+  box-shadow: 0 20px 46px rgba(30, 30, 30, 0.22);
+  backdrop-filter: blur(10px);
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.ageGatePanel:hover,
+.ageGatePanel:focus-within {
+  box-shadow: 0 26px 56px rgba(30, 30, 30, 0.28);
+  transform: translateY(-2px);
+}
+
+.birthdateFields {
+  display: grid;
+  grid-template-columns: 0.78fr 0.78fr 1.25fr;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.birthdateFields legend {
+  margin: 0 0 10px;
+  padding: 0;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.birthdateFields label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.birthdateFields span {
+  color: var(--muted);
+  font-size: 0.82em;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.ageGateForm input,
+.ageGateForm button {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(30, 30, 30, 0.22);
+  font: inherit;
+}
+
+.ageGateForm input {
+  background: rgba(255, 255, 255, 0.42);
+  color: var(--ink);
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.ageGateForm button {
+  background: var(--gradient-button);
+  color: #f2ffe9;
+  cursor: pointer;
+  font-weight: 650;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.ageGateForm button:hover {
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
+  transform: translateY(-2px);
+}
+
+.ageGateError {
+  margin: 0;
+  color: #6f1230;
+  font-weight: 650;
 }
 
 .homeVerse {
@@ -176,7 +458,9 @@ img {
 }
 
 .archivePageLink {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   width: fit-content;
   margin: 25px 0 0;
   text-decoration: none;
@@ -197,6 +481,7 @@ img {
 .aboutSection p {
   margin: 25px 0 0;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .aboutSection figure {
@@ -216,6 +501,7 @@ img {
 
 .aboutPageBody p {
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .aboutGallery {
@@ -250,6 +536,7 @@ img {
 .articleBody p {
   margin: 25px 0 0;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .articleImage {
@@ -286,6 +573,7 @@ img {
 .articleList {
   margin: 25px 0 0;
   padding-left: 1.5em;
+  overflow-wrap: anywhere;
 }
 
 .alignCenter {
@@ -300,6 +588,9 @@ img {
 
 .articleFooter > a,
 .articleFooter nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
 }
 
@@ -316,23 +607,159 @@ img {
 }
 
 @media (max-width: 900px) {
+  .siteHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .siteNav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .navButton {
+    flex: 1 1 calc(33.333% - 10px);
+  }
+
+  .homeLinkGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .postGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
-  .siteHeader {
-    align-items: flex-start;
-    flex-direction: column;
+  :root {
+    --page-pad: clamp(16px, 5vw, 22px);
   }
 
-  .headerActions {
-    width: 100%;
-    justify-content: space-between;
+  .siteHeader {
+    gap: 16px;
+    padding-top: 16px;
+    padding-bottom: 12px;
+  }
+
+  .siteLogo {
+    min-height: 40px;
+    font-size: clamp(22px, 7vw, 30px);
+  }
+
+  .navButton {
+    flex-basis: calc(50% - 8px);
+    min-height: 44px;
+    padding: 12px 16px;
+    text-align: center;
+  }
+
+  .pageContent {
+    padding-top: 28px;
   }
 
   .postGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .homeIntro h1,
+  .sectionPage h1 {
+    font-size: clamp(36px, 12vw, 62px);
+    line-height: 1.22;
+  }
+
+  .homeIntro p:not(.homeEyebrow),
+  .sectionPage p {
+    margin-top: 22px;
+    font-size: clamp(16px, 4.8vw, 20px);
+  }
+
+  .homeLinkGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 36px;
+  }
+
+  .homeLinkGrid a {
+    min-height: 68px;
+  }
+
+  .ageGateForm {
+    margin-top: 26px;
+  }
+
+  .maturePage.isLocked {
+    min-height: 620px;
+  }
+
+  .birthdateFields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .birthdateFields label:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .maturePreviewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .maturePreviewGrid article {
+    min-height: 124px;
+  }
+
+  .postCard h2,
+  .aboutSection h2,
+  .aboutPage h1,
+  .articleHeader h1 {
+    font-size: clamp(28px, 9vw, 42px);
+    line-height: 1.24;
+  }
+
+  .postCard time,
+  .articleHeader time,
+  .postCard p,
+  .readMore,
+  .articleBody p,
+  .articleImage,
+  .articleVerse,
+  .articleList,
+  .aboutSection,
+  .aboutSection p,
+  .aboutSection figure,
+  .aboutGallery,
+  .archivePagination {
+    margin-top: 20px;
+  }
+
+  .homeVerse {
+    margin-top: 42px;
+  }
+
+  .archivePagination,
+  .articleFooter nav {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .archivePagination a,
+  .articleFooter nav a {
+    max-width: 48%;
+  }
+}
+
+@media (max-width: 420px) {
+  .siteNav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .navButton,
+  .homeLinkGrid a {
+    width: 100%;
+  }
+
+  .homeLinkGrid {
     grid-template-columns: 1fr;
   }
 
@@ -340,6 +767,27 @@ img {
   .aboutSection h2,
   .aboutPage h1,
   .articleHeader h1 {
-    font-size: clamp(36px, 12vw, 54px);
+    font-size: clamp(26px, 8.5vw, 36px);
+  }
+
+  .archivePagination,
+  .articleFooter nav {
+    flex-direction: column;
+  }
+
+  .archivePagination a,
+  .articleFooter nav a {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .siteLogo,
+  .navButton,
+  .homeLinkGrid a,
+  .maturePage.isLocked .maturePreview,
+  .ageGatePanel,
+  .ageGateForm button {
+    transition: none;
   }
 }

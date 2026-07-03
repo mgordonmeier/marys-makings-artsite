@@ -1,6 +1,6 @@
-# The Mossy Post React Migration
+# Mary's Makings React Site
 
-React + TypeScript + Vite rebuild of `themossypost.com`, migrated from the original WordPress site so the layout, copy, and routing can be customized directly in code.
+React + TypeScript + Vite site for Mary's Makings, including the Mossypost archive migrated from the original WordPress site so the layout, copy, and routing can be customized directly in code.
 
 ## Getting Started
 
@@ -37,7 +37,7 @@ npm run lint
 ## Project Structure
 
 - `src/App.tsx` handles simple path-based routing.
-- `src/pages/` contains standalone pages such as About and 404.
+- `src/pages/` contains standalone pages such as the homepage, section pages, About, and 404.
 - `src/features/archive/` contains archive page rendering, post cards, and archive-specific UI.
 - `src/features/articles/` contains article page rendering and article block rendering.
 - `src/components/` contains shared shell components such as the layout and header.
@@ -52,8 +52,11 @@ npm run lint
 
 ## Routes
 
-- `/` - homepage archive with the first page of posts.
-- `/page/2/`, `/page/3/`, etc. - generated older-post archive pages.
+- `/` - fresh homepage with top-level section links.
+- `/collections/`, `/shop/`, `/events/`, `/contact/` - top navigation section pages.
+- `/mature/` - 18+ mature content section with birthdate age verification.
+- `/mossypost/` - Mossypost archive with the first page of posts.
+- `/mossypost/page/2/`, `/mossypost/page/3/`, etc. - generated older-post archive pages.
 - `/about/` - About page.
 - `/2026/.../` - individual article pages using WordPress-style slugs.
 

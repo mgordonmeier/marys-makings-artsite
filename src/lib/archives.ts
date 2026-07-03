@@ -14,15 +14,15 @@ export type ArchivePageData = {
 };
 
 export function getArchivePath(page: number) {
-  return page === 1 ? routes.home : `/page/${page}/`;
+  return page === 1 ? routes.mossypost : `${routes.mossypost}page/${page}/`;
 }
 
 export function getArchivePageNumber(path: string) {
-  if (path === routes.home) {
+  if (path === routes.mossypost) {
     return 1;
   }
 
-  const match = path.match(/^\/page\/([1-9]\d*)\/$/);
+  const match = path.match(/^\/mossypost\/page\/([1-9]\d*)\/$/);
   if (!match) {
     return undefined;
   }
@@ -53,4 +53,3 @@ export function getArchivePage(path: string): ArchivePageData | undefined {
     nextPath: currentPage < totalPages ? getArchivePath(currentPage + 1) : undefined,
   };
 }
-
