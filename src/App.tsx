@@ -1,70 +1,36 @@
+import { Header } from './components/Header';
+import { posts } from './data/posts';
+import { routes } from './data/site';
 import './index.css';
+import { ArticlePage } from './pages/ArticlePage';
+import { AboutPage } from './pages/AboutPage';
+import { HomePage } from './pages/HomePage';
+import { NotFound } from './pages/NotFound';
+import { PageTwo } from './pages/PageTwo';
+import { normalizePath } from './utils/routing';
 
 function App() {
+  const path = normalizePath(window.location.pathname);
+  const currentPost = posts.find((post) => post.slug === path);
+
   return (
-    <main className="site">
-      <section className="hero">
-        <p className="eyebrow">Artist Portfolio</p>
+    <div className="siteShell">
+      <Header />
 
-        <h1>Mary’s Makings</h1>
-
-        <p className="intro">
-          Original artwork, handmade pieces, commissions, and creative projects.
-        </p>
-
-        <div className="heroLinks">
-          <a href="#gallery">View Work</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </section>
-
-      <section id="about" className="section">
-        <h2>About</h2>
-        <p>
-          Add Mary’s artist bio here. This can describe what she makes, what
-          inspires her, and how people can support or commission her work.
-        </p>
-      </section>
-
-      <section id="gallery" className="section">
-        <h2>Selected Work</h2>
-
-        <div className="galleryGrid">
-          <article className="artCard">
-            <div className="artPlaceholder">Artwork 1</div>
-            <h3>Piece Title</h3>
-            <p>Medium / year / short description.</p>
-          </article>
-
-          <article className="artCard">
-            <div className="artPlaceholder">Artwork 2</div>
-            <h3>Piece Title</h3>
-            <p>Medium / year / short description.</p>
-          </article>
-
-          <article className="artCard">
-            <div className="artPlaceholder">Artwork 3</div>
-            <h3>Piece Title</h3>
-            <p>Medium / year / short description.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="contact" className="section">
-        <h2>Contact</h2>
-        <p>
-          For commissions, collaborations, or questions, reach out through
-          Mary’s preferred contact method.
-        </p>
-
-        <div className="socialLinks">
-          <a href="https://instagram.com/" target="_blank" rel="noreferrer">
-            Instagram
-          </a>
-          <a href="mailto:artist@example.com">Email</a>
-        </div>
-      </section>
-    </main>
+      <main className="pageContent">
+        {currentPost ? (
+          <ArticlePage post={currentPost} />
+        ) : path === routes.home ? (
+          <HomePage />
+        ) : path === routes.pageTwo ? (
+          <PageTwo />
+        ) : path === routes.about ? (
+          <AboutPage />
+        ) : (
+          <NotFound />
+        )}
+      </main>
+    </div>
   );
 }
 
