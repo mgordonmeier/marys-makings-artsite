@@ -61,19 +61,24 @@ img {
 .fontToggle {
   position: fixed;
   z-index: 10;
-  top: 54px;
-  left: 12px;
+  bottom: 16px;
+  left: 16px;
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   justify-content: center;
-  min-width: 116px;
-  min-height: 42px;
-  padding: 10px 14px;
-  background: rgba(242, 255, 233, 0.92);
+  min-width: 168px;
+  min-height: 50px;
+  padding: 8px 10px 8px 14px;
+  background:
+    linear-gradient(rgba(242, 255, 233, 0.92), rgba(242, 255, 233, 0.76)) padding-box,
+    var(--gradient-title) border-box;
   color: var(--ink);
-  border: 1px solid rgba(30, 30, 30, 0.22);
+  border: 1px solid transparent;
   border-radius: 999px;
-  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.16);
+  box-shadow:
+    0 10px 24px rgba(30, 30, 30, 0.18),
+    inset 0 0 0 1px rgba(255, 247, 168, 0.26);
   cursor: pointer;
   font-family: var(--font-main);
   font-size: 12px;
@@ -93,7 +98,56 @@ img {
   font-family: var(--font-main);
 }
 
+.siteShell.isWingdings .fontToggle :where(span) {
+  font-family: var(--font-main);
+}
+
+.fontToggleLabel,
+.fontToggleState {
+  position: relative;
+  z-index: 1;
+}
+
+.fontToggleState {
+  min-width: 24px;
+  text-align: left;
+}
+
+.fontToggleSwitch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(30, 30, 30, 0.22);
+  box-shadow:
+    inset 0 0 0 1px rgba(30, 30, 30, 0.22),
+    inset 0 2px 5px rgba(30, 30, 30, 0.18);
+}
+
+.fontToggleSwitch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f2ffe9;
+  box-shadow: 0 2px 6px rgba(30, 30, 30, 0.26);
+  transition: transform 180ms ease;
+}
+
+.fontToggle[aria-pressed="true"] .fontToggleSwitch {
+  background: rgba(255, 247, 168, 0.46);
+}
+
+.fontToggle[aria-pressed="true"] .fontToggleSwitch::after {
+  transform: translateX(22px);
+}
+
 .siteHeader {
+  position: relative;
   width: min(var(--wide), 100%);
   margin: 0 auto;
   padding: clamp(16px, 2.5vw, 24px) var(--page-pad);
@@ -114,50 +168,35 @@ img {
   font-family: var(--font-display);
   font-size: clamp(22px, 1.3rem + 1vw, 36px);
   line-height: 1.15;
-  padding: 8px 16px;
-  background: var(--gradient-title);
-  box-shadow: 0 10px 24px rgba(30, 30, 30, 0.16);
+  padding: 10px clamp(18px, 2.4vw, 28px);
+  background:
+    radial-gradient(circle at 18% 15%, rgba(255, 247, 168, 0.62), transparent 31%),
+    var(--gradient-title);
+  border: 2px solid rgba(30, 30, 30, 0.34);
+  border-radius: 999px 24px 999px 24px;
+  box-shadow:
+    0 10px 24px rgba(30, 30, 30, 0.16),
+    inset 0 0 0 2px rgba(255, 247, 168, 0.34),
+    inset 0 -10px 18px rgba(7, 85, 13, 0.12);
   text-decoration: none;
   overflow: visible;
   transition:
+    border-radius 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .siteBrand:hover {
-  box-shadow: 0 14px 30px rgba(30, 30, 30, 0.22);
+  border-radius: 24px 999px 24px 999px;
+  box-shadow:
+    0 14px 30px rgba(30, 30, 30, 0.22),
+    inset 0 0 0 2px rgba(255, 247, 168, 0.46),
+    inset 0 -10px 18px rgba(7, 85, 13, 0.14);
   transform: translateY(-2px);
 }
 
-.homeLogo {
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  min-height: clamp(84px, 10vw, 132px);
-  margin: auto auto 0;
-  padding: 18px clamp(24px, 4vw, 46px);
-  background: var(--gradient-title);
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(38px, 5.6vw, 92px);
-  font-weight: 400;
-  line-height: 1.18;
-  text-align: center;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  box-shadow: 0 16px 34px rgba(30, 30, 30, 0.18);
-  transition:
-    box-shadow 180ms ease,
-    transform 180ms ease;
-}
-
 .siteBrand::before,
-.siteBrand::after,
-.homeLogo::before,
-.homeLogo::after {
+.siteBrand::after {
   position: absolute;
   z-index: 1;
   color: #fff7a8;
@@ -185,27 +224,6 @@ img {
   animation-delay: 0.55s;
 }
 
-.homeLogo::before {
-  content: "✦";
-  top: -0.48em;
-  right: 0.42em;
-  font-size: clamp(24px, 2.4vw, 42px);
-}
-
-.homeLogo::after {
-  content: "✧";
-  bottom: -0.42em;
-  left: 0.48em;
-  color: #e9d5ff;
-  font-size: clamp(20px, 2vw, 34px);
-  animation-delay: 0.55s;
-}
-
-.homeLogo:hover {
-  box-shadow: 0 22px 44px rgba(30, 30, 30, 0.24);
-  transform: translateY(-2px);
-}
-
 @keyframes logoSparkle {
   0%,
   100% {
@@ -220,35 +238,86 @@ img {
 }
 
 .siteNav {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 11px;
   min-width: 0;
+  padding: 12px 14px;
+  background:
+    linear-gradient(rgba(242, 255, 233, 0.74), rgba(242, 255, 233, 0.38)) padding-box,
+    var(--gradient-title) border-box;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-shadow:
+    0 10px 24px rgba(30, 30, 30, 0.12),
+    inset 0 0 0 1px rgba(255, 247, 168, 0.22);
+}
+
+.siteNav::before,
+.siteNav::after {
+  position: absolute;
+  z-index: 1;
+  color: #fff7a8;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow:
+    0 0 6px rgba(255, 247, 168, 0.9),
+    0 0 13px rgba(7, 85, 13, 0.5);
+  animation: logoSparkle 2.3s ease-in-out infinite;
+}
+
+.siteNav::before {
+  content: "✧";
+  top: -0.65em;
+  right: 1.4em;
+  font-size: clamp(13px, 1.2vw, 20px);
+}
+
+.siteNav::after {
+  content: "✦";
+  bottom: -0.6em;
+  left: 1.6em;
+  color: #e9d5ff;
+  font-size: clamp(12px, 1vw, 18px);
+  animation-delay: 0.55s;
 }
 
 .navButton {
-  background: var(--gradient-button);
-  color: #f2ffe9;
+  position: relative;
+  z-index: 2;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 247, 168, 0.42), transparent 32%),
+    var(--gradient-button);
+  color: #f8ffe8;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  padding: 11px 16px;
-  border: 1px solid rgba(30, 30, 30, 0.12);
+  padding: 11px 17px;
+  border: 1px solid rgba(255, 247, 168, 0.32);
+  border-radius: 999px 18px 999px 18px;
   font-size: clamp(14px, 0.875rem + 0.18vw, 16px);
   font-weight: 700;
   line-height: 1.3;
   text-decoration: none;
-  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.14);
+  box-shadow:
+    0 8px 18px rgba(30, 30, 30, 0.14),
+    inset 0 0 0 1px rgba(242, 255, 233, 0.16);
   transition:
+    border-radius 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .navButton:hover {
-  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
+  border-radius: 18px 999px 18px 999px;
+  box-shadow:
+    0 12px 24px rgba(30, 30, 30, 0.2),
+    inset 0 0 0 1px rgba(255, 247, 168, 0.26);
   transform: translateY(-2px);
 }
 
@@ -343,6 +412,20 @@ img {
   padding: clamp(24px, 5vw, 50px) var(--page-pad) 0;
 }
 
+.siteFooter {
+  width: min(var(--wide), 100%);
+  margin: clamp(46px, 7vw, 78px) auto 0;
+  padding: 0 var(--page-pad);
+  display: grid;
+  justify-items: center;
+  gap: clamp(22px, 4vw, 38px);
+}
+
+.siteFooterBrand {
+  font-size: clamp(30px, 3.5vw, 64px);
+  padding: 14px clamp(24px, 4vw, 44px);
+}
+
 .postGrid {
   width: min(var(--wide), 100%);
   margin: 0 auto;
@@ -353,6 +436,8 @@ img {
 
 .postCard {
   min-width: 0;
+  padding: clamp(8px, 1.2vw, 14px);
+  border-radius: 24px 8px 24px 8px;
   text-align: center;
 }
 
@@ -363,9 +448,10 @@ img {
   margin: 0;
   background: var(--gradient-title);
   color: var(--ink);
-  display: inline;
+  display: inline-block;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  border-radius: 18px 6px 18px 6px;
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.24;
@@ -392,12 +478,29 @@ img {
 }
 
 .readMore {
+  background: var(--gradient-button);
+  color: #f2ffe9;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 44px;
   width: fit-content;
   margin: 25px auto 0;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 247, 168, 0.28);
+  border-radius: 999px 18px 999px 18px;
+  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.14);
   text-decoration: none;
+  transition:
+    border-radius 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.readMore:hover {
+  border-radius: 18px 999px 18px 999px;
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
+  transform: translateY(-2px);
 }
 
 .readMore:hover,
@@ -440,9 +543,10 @@ img {
   margin: 0;
   background: var(--gradient-title);
   color: var(--ink);
-  display: inline;
+  display: inline-block;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  border-radius: 26px 8px 26px 8px;
   font-family: var(--font-display);
   font-size: clamp(42px, 3.9rem + 2.5vw, 96px);
   font-weight: 400;
@@ -461,12 +565,12 @@ img {
 }
 
 .homeGallery {
-  width: min(1080px, 100%);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: center;
-  gap: clamp(16px, 2.5vw, 28px);
-  padding: clamp(8px, 1.4vw, 16px) 0;
+  width: min(920px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(18px, 3vw, 34px);
+  padding: clamp(10px, 1.8vw, 18px) 0;
 }
 
 .homeGalleryFrame {
@@ -475,7 +579,8 @@ img {
   position: relative;
   isolation: isolate;
   margin: 0;
-  padding: clamp(8px, 1.2vw, 12px);
+  width: min(74%, 680px);
+  padding: clamp(10px, 1.35vw, 16px);
   background:
     linear-gradient(var(--moss), var(--moss)) padding-box,
     var(--gradient-title) border-box;
@@ -486,6 +591,14 @@ img {
   transition:
     box-shadow 180ms ease,
     transform 180ms ease;
+}
+
+.homeGalleryFrame:nth-child(odd) {
+  align-self: flex-start;
+}
+
+.homeGalleryFrame:nth-child(even) {
+  align-self: flex-end;
 }
 
 .homeGalleryFrame:hover {
@@ -504,6 +617,7 @@ img {
   text-shadow:
     0 0 6px rgba(255, 247, 168, 0.9),
     0 0 14px rgba(155, 81, 224, 0.5);
+  animation: galleryStarDrift 2.4s ease-in-out infinite;
 }
 
 .homeGalleryFrame::before {
@@ -512,6 +626,7 @@ img {
 
 .homeGalleryFrame::after {
   content: "✧";
+  animation-delay: 0.7s;
 }
 
 .homeGalleryOpen {
@@ -533,52 +648,44 @@ img {
   object-fit: cover;
 }
 
-.homeGalleryFrame.is-moon {
-  aspect-ratio: 4 / 5;
-  --frame-color: #e9d5ff;
-  transform: rotate(-2.2deg);
-}
-
-.homeGalleryFrame.is-moon::before {
-  top: -0.55em;
-  left: 14%;
-  font-size: clamp(19px, 2vw, 30px);
-}
-
-.homeGalleryFrame.is-moon::after {
-  right: -0.34em;
-  bottom: 18%;
-  font-size: clamp(16px, 1.6vw, 24px);
-}
-
 .homeGalleryFrame.is-parlor {
   aspect-ratio: 5 / 4;
   --frame-color: #fff7a8;
-  transform: rotate(1.3deg);
+  transform: rotate(-1.8deg);
   border-style: double;
+  border-width: 6px;
+  border-radius: 3px 18px 3px 18px;
+}
+
+.homeGalleryFrame.is-parlor img {
+  border-radius: 0 10px 0 10px;
 }
 
 .homeGalleryFrame.is-parlor::before {
-  top: 18%;
-  right: -0.45em;
-  font-size: clamp(18px, 1.8vw, 28px);
+  top: -0.5em;
+  right: 16%;
+  font-size: clamp(20px, 2vw, 32px);
 }
 
 .homeGalleryFrame.is-parlor::after {
-  bottom: -0.46em;
-  left: 18%;
-  font-size: clamp(15px, 1.4vw, 22px);
+  bottom: 20%;
+  left: -0.42em;
+  font-size: clamp(16px, 1.55vw, 24px);
 }
 
 .homeGalleryFrame.is-sun {
   aspect-ratio: 5 / 4;
   --frame-color: #47bfff;
-  transform: rotate(-1deg);
-  border-radius: 18px 4px 18px 4px;
+  transform: rotate(1.6deg);
+  border-width: 5px;
+  border-radius: 22px 5px 22px 5px;
+  box-shadow:
+    0 16px 30px rgba(18, 74, 91, 0.22),
+    inset 0 0 0 2px rgba(242, 255, 233, 0.52);
 }
 
 .homeGalleryFrame.is-sun img {
-  border-radius: 10px 0 10px 0;
+  border-radius: 14px 0 14px 0;
 }
 
 .homeGalleryFrame.is-sun::before {
@@ -596,12 +703,16 @@ img {
 .homeGalleryFrame.is-village {
   aspect-ratio: 5 / 4;
   --frame-color: #58d562;
-  transform: rotate(1.9deg);
-  border-radius: 4px 20px 4px 20px;
+  transform: rotate(-1.1deg);
+  border-width: 5px;
+  border-radius: 5px 24px 5px 24px;
+  box-shadow:
+    0 16px 30px rgba(12, 84, 33, 0.21),
+    inset 0 0 0 2px rgba(242, 255, 233, 0.52);
 }
 
 .homeGalleryFrame.is-village img {
-  border-radius: 0 12px 0 12px;
+  border-radius: 0 16px 0 16px;
 }
 
 .homeGalleryFrame.is-village::before {
@@ -614,6 +725,19 @@ img {
   top: 14%;
   right: -0.4em;
   font-size: clamp(14px, 1.4vw, 22px);
+}
+
+@keyframes galleryStarDrift {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: translateY(0) scale(0.88) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.16) rotate(18deg);
+  }
 }
 
 .galleryLightbox {
@@ -679,10 +803,6 @@ img {
   max-height: calc(88svh - 48px);
 }
 
-.galleryLightboxFrame.is-moon {
-  --frame-color: #e9d5ff;
-}
-
 .galleryLightboxFrame.is-parlor {
   --frame-color: #fff7a8;
   border-style: double;
@@ -732,36 +852,44 @@ img {
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: calc(clamp(28px, 5vw, 56px) * -0.5);
+  margin-top: 0;
   padding: 10px;
-  border-top: 1px solid rgba(30, 30, 30, 0.18);
-  border-bottom: 1px solid rgba(30, 30, 30, 0.18);
+  background:
+    linear-gradient(rgba(242, 255, 233, 0.58), rgba(242, 255, 233, 0.28)) padding-box,
+    var(--gradient-title) border-box;
+  border: 1px solid transparent;
+  border-radius: 28px;
+  box-shadow:
+    0 10px 24px rgba(30, 30, 30, 0.1),
+    inset 0 0 0 1px rgba(255, 247, 168, 0.22);
 }
 
 .homeLinkGrid a {
-  background: rgba(242, 255, 233, 0.22);
-  color: var(--ink);
+  background: var(--gradient-button);
+  color: #f2ffe9;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 42px;
   padding: 10px 16px;
-  border: 1px solid rgba(30, 30, 30, 0.16);
-  border-radius: 999px;
+  border: 1px solid rgba(255, 247, 168, 0.28);
+  border-radius: 999px 18px 999px 18px;
   font-size: clamp(13px, 0.8rem + 0.25vw, 16px);
   font-weight: 800;
   line-height: 1.15;
   text-align: center;
   text-decoration: none;
-  box-shadow: 0 6px 14px rgba(30, 30, 30, 0.1);
+  box-shadow:
+    0 6px 14px rgba(30, 30, 30, 0.1),
+    inset 0 0 0 1px rgba(242, 255, 233, 0.12);
   transition:
-    background-color 180ms ease,
+    border-radius 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
 .homeLinkGrid a:hover {
-  background: rgba(242, 255, 233, 0.42);
+  border-radius: 18px 999px 18px 999px;
   box-shadow: 0 10px 18px rgba(30, 30, 30, 0.16);
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -835,8 +963,11 @@ img {
   padding: clamp(18px, 2.4vw, 26px);
   background: var(--gradient-button);
   color: #f2ffe9;
-  border: 1px solid rgba(30, 30, 30, 0.12);
-  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.16);
+  border: 1px solid rgba(255, 247, 168, 0.26);
+  border-radius: 24px 8px 24px 8px;
+  box-shadow:
+    0 12px 24px rgba(30, 30, 30, 0.16),
+    inset 0 0 0 1px rgba(242, 255, 233, 0.12);
 }
 
 .maturePreviewGrid span,
@@ -861,9 +992,14 @@ img {
   z-index: 1;
   width: min(520px, 100%);
   padding: clamp(22px, 4vw, 34px);
-  background: rgba(105, 184, 101, 0.9);
-  border: 1px solid rgba(30, 30, 30, 0.16);
-  box-shadow: 0 20px 46px rgba(30, 30, 30, 0.22);
+  background:
+    linear-gradient(rgba(242, 255, 233, 0.88), rgba(105, 184, 101, 0.78)) padding-box,
+    var(--gradient-title) border-box;
+  border: 2px solid transparent;
+  border-radius: 28px 10px 28px 10px;
+  box-shadow:
+    0 20px 46px rgba(30, 30, 30, 0.22),
+    inset 0 0 0 1px rgba(255, 247, 168, 0.28);
   backdrop-filter: blur(10px);
   transition:
     box-shadow 180ms ease,
@@ -874,6 +1010,18 @@ img {
 .ageGatePanel:focus-within {
   box-shadow: 0 26px 56px rgba(30, 30, 30, 0.28);
   transform: translateY(-2px);
+}
+
+.ageGatePanel h1 {
+  max-width: 100%;
+  font-size: clamp(30px, 7.5vw, 48px);
+  line-height: 1.18;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.ageGatePanel p {
+  max-width: 100%;
 }
 
 .birthdateFields {
@@ -910,6 +1058,7 @@ img {
   width: 100%;
   min-height: 48px;
   border: 1px solid rgba(30, 30, 30, 0.22);
+  border-radius: 16px;
   font: inherit;
 }
 
@@ -923,6 +1072,7 @@ img {
 .ageGateForm button {
   background: var(--gradient-button);
   color: #f2ffe9;
+  border-color: rgba(255, 247, 168, 0.3);
   cursor: pointer;
   font-weight: 650;
   transition:
@@ -966,12 +1116,29 @@ img {
 }
 
 .archivePageLink {
+  background: var(--gradient-button);
+  color: #f2ffe9;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 44px;
   width: fit-content;
   margin: 25px auto 0;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 247, 168, 0.28);
+  border-radius: 999px 18px 999px 18px;
+  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.14);
   text-decoration: none;
+  transition:
+    border-radius 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.archivePageLink:hover {
+  border-radius: 18px 999px 18px 999px;
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
+  transform: translateY(-2px);
 }
 
 .archivePagination {
@@ -1000,6 +1167,8 @@ img {
 .aboutSection img {
   width: 100%;
   height: auto;
+  border-radius: 24px 8px 24px 8px;
+  box-shadow: 0 14px 28px rgba(30, 30, 30, 0.16);
 }
 
 .aboutPage {
@@ -1021,11 +1190,18 @@ img {
 
 .aboutGallery figure {
   margin: 0;
+  padding: clamp(8px, 1.2vw, 12px);
+  background:
+    linear-gradient(var(--moss), var(--moss)) padding-box,
+    var(--gradient-title) border-box;
+  border: 4px solid transparent;
+  border-radius: 24px 8px 24px 8px;
 }
 
 .aboutGallery img {
   width: 100%;
   height: auto;
+  border-radius: 16px 2px 16px 2px;
 }
 
 .articlePage {
@@ -1060,6 +1236,8 @@ img {
 .articleImage img {
   width: 100%;
   height: auto;
+  border-radius: 18px 6px 18px 6px;
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.14);
 }
 
 .articleImage figcaption {
@@ -1100,16 +1278,30 @@ img {
 
 .articleFooter > a,
 .articleFooter nav a {
+  background: var(--gradient-button);
+  color: #f2ffe9;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 247, 168, 0.28);
+  border-radius: 999px 18px 999px 18px;
+  box-shadow: 0 8px 18px rgba(30, 30, 30, 0.14);
   text-decoration: none;
+  transition:
+    border-radius 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
 }
 
 .articleFooter > a:hover,
 .articleFooter nav a:hover {
+  border-radius: 18px 999px 18px 999px;
+  box-shadow: 0 12px 24px rgba(30, 30, 30, 0.2);
   text-decoration: underline;
   text-underline-offset: 0.18em;
+  transform: translateY(-2px);
 }
 
 .articleFooter nav {
@@ -1134,7 +1326,10 @@ img {
 
   .homeGallery {
     width: min(760px, 100%);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .homeGalleryFrame {
+    width: min(82%, 620px);
   }
 
   .postGrid {
@@ -1158,6 +1353,7 @@ img {
   .siteNav {
     width: 100%;
     justify-content: center;
+    border-radius: 24px;
   }
 
   .newsTicker {
@@ -1168,16 +1364,12 @@ img {
     justify-content: center;
   }
 
-  .homeLogo {
-    min-height: clamp(76px, 18vw, 112px);
-    font-size: clamp(34px, 11vw, 68px);
-  }
-
   .navButton {
     flex-basis: calc(50% - 8px);
     min-height: 44px;
     padding: 12px 16px;
     text-align: center;
+    border-radius: 18px;
   }
 
   .pageContent {
@@ -1203,12 +1395,28 @@ img {
 
   .homeGallery {
     width: min(440px, 100%);
-    grid-template-columns: 1fr;
     gap: 24px;
   }
 
   .homeGalleryFrame {
-    transform: none;
+    width: min(92%, 390px);
+  }
+
+  .homeGalleryFrame:nth-child(odd),
+  .homeGalleryFrame:nth-child(even) {
+    align-self: center;
+  }
+
+  .homeGalleryFrame.is-parlor {
+    transform: rotate(-1deg);
+  }
+
+  .homeGalleryFrame.is-sun {
+    transform: rotate(1deg);
+  }
+
+  .homeGalleryFrame.is-village {
+    transform: rotate(-0.8deg);
   }
 
   .homeLinkGrid {
@@ -1221,6 +1429,10 @@ img {
 
   .ageGateForm {
     margin-top: 26px;
+  }
+
+  .ageGatePanel h1 {
+    font-size: clamp(28px, 9vw, 40px);
   }
 
   .maturePage.isLocked {
@@ -1288,6 +1500,7 @@ img {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
+    border-radius: 20px;
   }
 
   .navButton,
@@ -1318,17 +1531,21 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .homeLogo,
-  .homeLogo::before,
-  .homeLogo::after,
   .siteBrand,
   .siteBrand::before,
   .siteBrand::after,
+  .siteNav::before,
+  .siteNav::after,
   .galleryLightbox,
   .galleryLightboxFrame,
   .galleryLightboxFrame::before,
   .galleryLightboxFrame::after,
+  .homeGalleryFrame,
+  .homeGalleryFrame::before,
+  .homeGalleryFrame::after,
   .navButton,
+  .fontToggle,
+  .fontToggleSwitch::after,
   .tickerTrack,
   .homeLinkGrid a,
   .maturePage.isLocked .maturePreview,

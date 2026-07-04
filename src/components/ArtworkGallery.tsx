@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import moonPainting from '../img/IMG_0573.jpeg';
 import couchPainting from '../img/IMG_0586.jpeg';
 import beachPainting from '../img/IMG_0602.jpeg';
 import villagePainting from '../img/IMG_0691.jpeg';
@@ -7,15 +6,10 @@ import villagePainting from '../img/IMG_0691.jpeg';
 type GalleryImage = {
   src: string;
   alt: string;
-  frame: 'moon' | 'parlor' | 'sun' | 'village';
+  frame: 'parlor' | 'sun' | 'village';
 };
 
 const galleryImages: GalleryImage[] = [
-  {
-    src: moonPainting,
-    alt: 'Painting of a small figure sitting on a glowing moon in a starry sky',
-    frame: 'moon',
-  },
   {
     src: couchPainting,
     alt: 'Painting of two people sitting on a purple couch sharing a small magical moment',

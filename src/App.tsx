@@ -73,7 +73,7 @@ function App() {
   }, []);
 
   return (
-    <Layout>
+    <Layout showFooter={path !== routes.mature}>
       {path === routes.home ? (
         <HomePage />
       ) : currentArchive ? (

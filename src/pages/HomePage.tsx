@@ -1,9 +1,8 @@
 import { ArtworkGallery } from '../components/ArtworkGallery';
-import { externalLinks, SITE_TITLE } from '../data/site';
 
 export function HomePage() {
   return (
-    <section className="homePage" aria-labelledby="home-title">
+    <section className="homePage" aria-label="Mary's Makings home">
       <div className="homeIntro">
         <p className="homeEyebrow">Art, story, making, and mossy little trails.</p>
         <p>
@@ -13,18 +12,6 @@ export function HomePage() {
       </div>
 
       <ArtworkGallery label="Featured artwork" />
-
-      <h1 className="homeLogo" id="home-title">
-        {SITE_TITLE}
-      </h1>
-
-      <nav className="homeLinkGrid" aria-label="External links">
-        {externalLinks.map((item) => (
-          <a href={item.href} key={item.href} rel="noreferrer" target="_blank">
-            {item.label}
-          </a>
-        ))}
-      </nav>
     </section>
   );
 }

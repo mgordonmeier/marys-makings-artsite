@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { ArtworkGallery } from '../components/ArtworkGallery';
+import { Footer } from '../components/Footer';
 
 const AGE_GATE_KEY = 'marys-makings-mature-access';
 
@@ -117,9 +118,13 @@ export function MaturePage() {
 
   if (isVerified) {
     return (
-      <section className="sectionPage maturePage" aria-labelledby="mature-title">
-        <MatureContentPreview />
-      </section>
+      <>
+        <section className="sectionPage maturePage" aria-labelledby="mature-title">
+          <MatureContentPreview />
+        </section>
+
+        <Footer />
+      </>
     );
   }
 
