@@ -393,7 +393,7 @@ img {
 }
 
 .newsTicker:hover .tickerTrack,
-.newsTicker:focus-within .tickerTrack {
+.newsTicker:has(.tickerItem:focus-visible) .tickerTrack {
   animation-play-state: paused;
 }
 
