@@ -143,8 +143,8 @@ export function MaturePage() {
           <fieldset className="birthdateFields">
             <legend>Birthdate</legend>
             <label>
-              <span>DD</span>
               <input
+                aria-label="Birth day"
                 autoComplete="bday-day"
                 inputMode="numeric"
                 maxLength={2}
@@ -155,8 +155,8 @@ export function MaturePage() {
               />
             </label>
             <label>
-              <span>MM</span>
               <input
+                aria-label="Birth month"
                 autoComplete="bday-month"
                 inputMode="numeric"
                 maxLength={2}
@@ -167,8 +167,8 @@ export function MaturePage() {
               />
             </label>
             <label>
-              <span>YYYY</span>
               <input
+                aria-label="Birth year"
                 autoComplete="bday-year"
                 inputMode="numeric"
                 maxLength={4}
